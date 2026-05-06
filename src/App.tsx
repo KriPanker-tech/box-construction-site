@@ -18,6 +18,12 @@ import {
 
 const THEME_KEY = 'box-construction-theme';
 type ThemeMode = 'dark' | 'light';
+type SiteImageProps = {
+  alt: string;
+  className?: string;
+  priority?: boolean;
+  src: string;
+};
 
 function formatMultilineText(text: string) {
   return text.split('\n').map((line, index) => (
@@ -25,6 +31,19 @@ function formatMultilineText(text: string) {
       {line}
     </p>
   ));
+}
+
+function SiteImage({ alt, className, priority = false, src }: SiteImageProps) {
+  return (
+    <img
+      alt={alt}
+      className={className}
+      decoding="async"
+      fetchPriority={priority ? 'high' : 'low'}
+      loading={priority ? 'eager' : 'lazy'}
+      src={src}
+    />
+  );
 }
 
 export default function App() {
@@ -95,7 +114,7 @@ export default function App() {
           </div>
 
           <div className="hero-visual">
-            <img src={imageMap.heroHouse} alt="Box Construction container house" />
+            <SiteImage priority src={imageMap.heroHouse} alt="Box Construction container house" />
             <span className="hero-night-overlay" aria-hidden="true" />
             <span className="hero-window-glows" aria-hidden="true" />
             <span className="hero-moonlight" aria-hidden="true" />
@@ -110,7 +129,7 @@ export default function App() {
           </div>
 
           <div className="story-layout">
-            <img className="feature-image" src={imageMap.heroHistory} alt="Historia de Box Construction" />
+            <SiteImage className="feature-image" src={imageMap.heroHistory} alt="Historia de Box Construction" />
 
             <div className="timeline">
               {storySteps.map((item) => (
@@ -133,7 +152,7 @@ export default function App() {
           <div className="priority-grid wide">
             {priorities.map((item) => (
               <article key={item.title} className="priority-card with-image">
-                <img src={item.image} alt={item.title} />
+                <SiteImage src={item.image} alt={item.title} />
                 <div className="priority-copy">
                   <h3>{item.title}</h3>
                   <p>{item.text}</p>
@@ -151,7 +170,7 @@ export default function App() {
           </div>
         </section>
 
-        <section className="section comparison-section">
+        <section className="section">
           <div className="section-heading compact">
             <p className="kicker">Living</p>
             <h2>Transformar los espacios de vida con contenedores</h2>
@@ -167,7 +186,7 @@ export default function App() {
               ))}
             </div>
 
-            <img className="feature-image" src={imageMap.livingSpaces} alt="Espacios de vida con contenedores" />
+            <SiteImage className="feature-image" src={imageMap.livingSpaces} alt="Espacios de vida con contenedores" />
           </div>
         </section>
 
@@ -206,7 +225,7 @@ export default function App() {
           <div className="solution-grid">
             {businessSolutions.map((item) => (
               <article key={item.title} className="solution-card image-card">
-                <img src={item.image} alt={item.title} />
+                <SiteImage src={item.image} alt={item.title} />
                 <div className="solution-copy">
                   <h3>{item.title}</h3>
                   <p>{item.text}</p>
@@ -223,7 +242,7 @@ export default function App() {
           </div>
 
           <div className="comparison-layout">
-            <img className="feature-image" src={imageMap.comparison} alt="Comparación de construcción" />
+            <SiteImage className="feature-image" src={imageMap.comparison} alt="Comparación de construcción" />
 
             <div className="table-wrap">
               <table className="comparison-table">
@@ -266,7 +285,7 @@ export default function App() {
               ))}
             </div>
 
-            <img className="feature-image" src={imageMap.process} alt="Proceso de Box Construction" />
+            <SiteImage className="feature-image" src={imageMap.process} alt="Proceso de Box Construction" />
           </div>
         </section>
 
@@ -312,7 +331,7 @@ export default function App() {
           <div className="team-grid">
             {team.map((member) => (
               <article key={member.name} className="team-card photo-card">
-                <img src={member.image} alt={member.name} />
+                <SiteImage src={member.image} alt={member.name} />
                 <div className="team-copy">
                   <h3>{member.name}</h3>
                   <p>{member.role}</p>
