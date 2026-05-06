@@ -3,5 +3,6 @@ dist
 .DS_Store
 *.tsbuildinfo
 .playwright-cli
+output/playwright
 vite.config.js
 vite.config.d.ts
